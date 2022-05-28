@@ -1,0 +1,40 @@
+pvcreate /dev/sdc
+vgextend app /dev/sdd1
+lvextend /dev/app/orafra /dev/sdd1
+xfs_growfs /dev/app/orafra
+
+
+=========
+ LV Path                /dev/vg00/lv_hana_backup
+  LV Name                lv_hana_backup
+
+
+VG Name               rhel
+/dev/vg00/lv_hana_backup
+lv_hana_backup
+----------
+pvcreate /dev/sdc
+vgextend app /dev/sdd1
+
+lvextend /dev/app/orafra /dev/sdd1
+
+============
+
+ vgdisplay vg00
+   53  lvdisplay lv_hana_backup
+   54  lvdisplay /dev/mapper/vg00-lv_hana_backup
+   55  pvcreate /dev/sdc
+   56  vgextend vg00
+   57  vgextend vg00 /dev/sdc
+   58  vgdisplay vg00
+   59  lvextend /dev/vg00/lv_hana_backup /dev/sdc
+   60  xfs_growfs /dev/vg00/lv_hana_backup
+
+
+pvcreate /dev/sdd
+
+vgextend vg00 /dev/sdd
+
+lvextend /dev/vg00/lv_backup /dev/sdd
+
+xfs_growfs /dev/vg00/lv_backup
